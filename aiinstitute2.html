@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style_video.css">
+  <title>AI - Institute</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Existing Header Style */
+    header {
+      background: #222;
+      color: #fff;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    /* --- New Navigation Bar Styles --- */
+    /* Target the main header for the site title */
+    .site-header {
+      background: #222;
+      color: #fff;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgb(17, 48, 96);
+      height: 50px;
+      padding: 0 40px;
+      font-family: sans-serif; /* Applied for consistency */
+    }
+
+    .topbar a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease-in-out;
+      font-weight: 500;
+      margin: 0 5px;
+      position: relative;
+    }
+
+    .topbar a:hover {
+      color: wheat;
+    }
+
+    .lang-switch,
+    .topbar-menu {
+      display: flex;
+      align-items: center;
+      gap: 10px; /* Adjust gap for better spacing */
+    }
+
+    /* Разделители */
+    .lang-switch a:not(:last-child)::after,
+    .topbar-menu a:not(:last-child)::after {
+      content: "|";
+      color: rgba(255, 255, 255, 0.7);
+      margin-left: 10px;
+      margin-right: -5px; /* Adjust for visual alignment with margin: 0 5px; on 'a' */
+    }
+
+    /* Remove default padding/margin for new nav */
+    .topbar-menu a, .lang-switch a {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* --- End New Navigation Bar Styles --- */
+
+    .clock {
+      margin: 40px auto;
+      width: 300px;
+      height: 300px;
+      border: 10px solid #333;
+      border-radius: 50%;
+      position: relative;
+      background: white;
+    }
+    .hand {
+      width: 50%;
+      height: 4px;
+      background: black;
+      position: absolute;
+      top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: transform 0.5s ease-in-out;
+    }
+    .hour { height: 6px; background: #333; }
+    .minute { height: 4px; background: #666; }
+    .second { height: 2px; background: red; }
+
+    .schedule {
+      margin: 30px auto;
+      width: 80%;
+      text-align: left;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .days a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background: #0077cc;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .days a:hover {
+      background: #005fa3;
+    }
+    .day-schedule {
+      display: none;
+      margin-top: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+      font-size: 14px;
+    }
+    th {
+      background: #f0f0f0;
+    }
+    .photo {
+      margin: 30px auto;
+      cursor: pointer;
+      width: 200px;
+    }
+    .teacher-button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #0077cc;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .teacher-button:hover {
+      background: #005fa3;
+    }
+  </style>
+</head>
+<body>
+  <body>
+  <video autoplay muted loop id="bg-video">
+    <source src="your-video.mp4" type="video/mp4">
+  </video>
+
+  <header class="site-header">AI - Institute (Group InfAi-24-1)</header>
+
+  <div class="topbar">
+    <div class="lang-switch">
+      <a href="#">KZ</a>
+      <a href="#">RU</a>
+      <a href="#">EN</a>
+    </div>
+    <div class="topbar-menu">
+      <a href="#">Главная</a>
+      <a href="#">Карта сайта</a>
+      <a href="#">Комплайенс служба</a>
+      <a href="#">Контакты</a>
+    </div>
+    </div>
+  <div class="clock">
+    <div class="hand hour" id="hour"></div>
+    <div class="hand minute" id="minute"></div>
+    <div class="hand second" id="second"></div>
+  </div>
+
+  <div class="schedule">
+    <h2>Расписание (5 дней)</h2>
+    <div class="days">
+      <a href="#" onclick="showSchedule('monday')">Понедельник</a>
+      <a href="#" onclick="showSchedule('tuesday')">Сейсенбі</a>
+      <a href="#" onclick="showSchedule('wednesday')">Сәрсенбі</a>
+      <a href="#" onclick="showSchedule('thursday')">Бейсенбі</a>
+      <a href="#" onclick="showSchedule('friday')">Жұма</a>
+    </div>
+
+    <div id="monday" class="day-schedule">
+      <h3>Понедельник (Monday)</h3>
+      <table>
+        <tr><th>Время</th><th>Предмет</th><th>Тип</th><th>Преподаватель</th><th>Аудитория</th></tr>
+        <tr><td>12:50-13:40</td><td>Мәдениеттану (Culturology)</td><td>Лек</td><td>Жақсыбаев А.С.</td><td>300</td></tr>
+        <tr><td>13:50-14:40</td><td>Сәулеттану (Architecture)</td><td>Лек</td><td>Ильясова Э.У.</td><td>300</td></tr>
+        <tr><td>14:50-15:40</td><td>Ықтималдық теориясы және мат. стат.</td><td>Лек</td><td>Жарменова Б.К.</td><td>304</td></tr>
+        <tr><td>15:50-16:40</td><td>Ықтималдық теориясы және мат. стат.</td><td>Лек</td><td>Жарменова Б.К.</td><td>304</td></tr>
+        <tr><td>16:50-17:40</td><td>Ықтималдық теориясы және мат. стат.</td><td>Пр.</td><td>Жарменова Б.К.</td><td>304</td></tr>
+      </table>
+    </div>
+
+    <div id="tuesday" class="day-schedule">
+      <h3>Сейсенбі (Tuesday)</h3>
+      <table>
+        <tr><td>10:30-11:20</td><td>Психология</td><td>Пр.</td><td>Ізтілекеева Н.Ж.</td><td>300</td></tr>
+        <tr><td>11:30-12:20</td><td>Психология</td><td>Пр.</td><td>Ізтілекеева Н.Ж.</td><td>300</td></tr>
+        <tr><td>12:50-13:40</td><td>Дене шынықтыру</td><td>Пр.</td><td>Алиев Қ.З.</td><td>Сейхун</td></tr>
+        <tr><td>13:50-14:40</td><td>Дене шынықтыру</td><td>Пр.</td><td>Алиев Қ.З.</td><td>Сейхун</td></tr>
+        <tr><td>16:50-17:40</td><td>Шетел тілі (Ағылшын)</td><td>Пр.</td><td>Елтаев А.Т.</td><td>304</td></tr>
+      </table>
+    </div>
+
+    <div id="wednesday" class="day-schedule">
+      <h3>Сәрсенбі (Wednesday)</h3>
+      <table>
+        <tr><td>12:50-13:40</td><td>Әлеуметтану</td><td>Лек</td><td>Ильясова Э.У.</td><td>300</td></tr>
+        <tr><td>13:50-14:40</td><td>Психология</td><td>Лек</td><td>Ізтілекеева Н.Ж.</td><td>300</td></tr>
+        <tr><td>14:50-15:40</td><td>Программалау II</td><td>Пр.</td><td>Мусагулова Г.Ш.</td><td>304</td></tr>
+        <tr><td>15:50-16:40</td><td>Программалау II</td><td>Пр.</td><td>Мусагулова Г.Ш.</td><td>304</td></tr>
+        <tr><td>16:50-17:40</td><td>Әлеуметтану</td><td>Пр.</td><td>Ильясова Э.У.</td><td>304</td></tr>
+        <tr><td>17:50-18:40</td><td>Сәулеттану</td><td>Пр.</td><td>Ильясова Э.У.</td><td>304</td></tr>
+      </table>
+    </div>
+
+    <div id="thursday" class="day-schedule">
+      <h3>Бейсенбі (Thursday)</h3>
+      <table>
+        <tr><td>08:30-09:20</td><td>Кәріс тілі 3 (III)</td><td>Пр.</td><td>Ергазы А.А.</td><td>304</td></tr>
+        <tr><td>09:30-10:20</td><td>Кәріс тілі 3 (II)</td><td>Пр.</td><td>Ергазы А.А.</td><td>304</td></tr>
+        <tr><td>11:30-12:20</td><td>Мәдениеттану</td><td>Пр.</td><td>Жақсыбаев А.С.</td><td>300</td></tr>
+        <tr><td>12:50-13:40</td><td>Web-технологиялар</td><td>Лаб.</td><td>Жүсіпбек Б.К.</td><td>305</td></tr>
+        <tr><td>13:50-14:40</td><td>Web-технологиялар (I)</td><td>Лаб.</td><td>Жүсіпбек Б.К.</td><td>304</td></tr>
+        <tr><td>14:50-15:40</td><td>Web-технологиялар (II) / (I)</td><td>Лаб.</td><td>Жүсіпбек Б.К. / Мусагулова Г.Ш.</td><td>304</td></tr>
+        <tr><td>15:50-16:40</td><td>Кәріс тілі 3 (I)</td><td>Пр.</td><td>Ергазы А.А.</td><td>304</td></tr>
+      </table>
+    </div>
+
+    <div id="friday" class="day-schedule">
+      <h3>Жұма (Friday)</h3>
+      <table>
+        <tr><td>13:50-14:40</td><td>Web-технологиялар (I)</td><td>Лаб.</td><td>Жүсіпбек Б.К.</td><td>307</td></tr>
+        <tr><td>14:50-15:40</td><td>Программалау II</td><td>Лаб.</td><td>Мусагулова Г.Ш.</td><td>304</td></tr>
+        <tr><td>14:50-15:40</td><td>Web-технологиялар (II)</td><td>Лаб.</td><td>Жүсіпбек Б.К.</td><td>307</td></tr>
+        <tr><td>15:50-16:40</td><td>Программалау II (I)</td><td>Лаб.</td><td>Мусагулова Г.Ш.</td><td>304</td></tr>
+        <tr><td>15:50-16:40</td><td>Шетел тілі (Ағылшын)</td><td>Пр.</td><td>Жаппаров Н.Ә.</td><td>307</td></tr>
+        <tr><td>16:50-17:40</td><td>Шетел тілі (Ағылшын)</td><td>Пр.</td><td>Жаппаров Н.Ә.</td><td>304</td></tr>
+        <tr><td>16:50-17:40</td><td>Шетел тілі (Ағылшын)</td><td>Пр.</td><td>Елтаев А.Т.</td><td>307</td></tr>
+        <tr><td>17:50-18:40</td><td>Шетел тілі (Ағылшын)</td><td>Пр.</td><td>Елтаев А.Т.</td><td>307</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <img src="https://via.placeholder.com/200" alt="Фото" class="photo" id="photo">
+  <button class="teacher-button" id="teacherBtn" onclick="window.open('teachers.html','_blank')">Информация о преподавателях</button>
+
+  <script>
+    function updateClock(){
+      const now = new Date();
+      const second = now.getSeconds();
+      const minute = now.getMinutes();
+      const hour = now.getHours();
+
+      document.getElementById("second").style.transform = `rotate(${90 + second*6}deg)`;
+      document.getElementById("minute").style.transform = `rotate(${90 + minute*6}deg)`;
+      document.getElementById("hour").style.transform = `rotate(${90 + (hour%12)*30 + minute/2}deg)`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function showSchedule(dayId) {
+      document.querySelectorAll('.day-schedule').forEach(div => div.style.display = 'none');
+      document.getElementById(dayId).style.display = 'block';
+    }
+  </script>
+</body>
+</html>
